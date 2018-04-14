@@ -1,0 +1,141 @@
+{
+    "pages": [
+        {
+            "Name": "add_report_on_fulfilled_charity_request",
+            "Conditions": "true",
+            "Menu": "admin_menu",
+            "Value": "SetTitle(\"Add Report On Fulfilled Charity Request\")\nDiv(content-wrapper){\n    Form(panel-body){\n                    Div(row){\n                        Div(col-sm-6){\n                            Input(Name: doc, Type:file, Placeholder:Upload Report) \n                            Input(Name: recipientId, Type:text, Placeholder: Enter recipient \"wallet\")\n                            Label(//recipient \"wallet\" needed in order to notify them that their confirmation needed)\n                            Button()\n                        }\n                        Div(col-sm-6)}\n                               Input(Name: assessmentChkBox, Type:checkbox, Disabled: disabled) \n                               Label(\"Confirmed by donation recipient\")\n                        }\n                    }\n}"
+        }
+    ],
+    "blocks": [],
+    "menus": [],
+    "parameters": [],
+    "languages": [],
+    "contracts": [
+        {
+            "Name": "AddReportOnCompletedCharityRequest",
+            "Value": "contract AddReportOnCompletedCharityRequest {\n    data {\n        OrganizationId int\n        IsConfirmed bool\n        //CharityRequestId int \"hidden\"\n    }\n\n    conditions {\n\n    }\n\n    action {\n        var rowId int\n        //rowId = DBInsert(\"nco_mission_completed_report\", \"organization_id,charity_request_id,recipient_acknowledgement\",\n        //                    )\n    }\n}",
+            "Conditions": "ContractConditions(\"MainCondition\")"
+        }
+    ],
+    "tables": [
+        {
+            "Name": "nco_charity_request",
+            "Columns": "[{\"name\":\"recipient_id\",\"type\":\"number\",\"conditions\":\"true\"},{\"name\":\"request_digest\",\"type\":\"text\",\"conditions\":\"true\"}]",
+            "Permissions": "{\"insert\":\"ContractConditions(\\\"MainCondition\\\")\",\"update\":\"ContractConditions(\\\"MainCondition\\\")\",\"new_column\":\"ContractConditions(\\\"MainCondition\\\")\"}"
+        },
+        {
+            "Name": "nco_credentials",
+            "Columns": "[{\"name\":\"website\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"registered\",\"type\":\"datetime\",\"conditions\":\"true\"},{\"name\":\"credentials\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"description\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"name\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"tags\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"rating\",\"type\":\"double\",\"conditions\":\"true\"}]",
+            "Permissions": "{\"insert\":\"ContractConditions(\\\"MainCondition\\\")\",\"update\":\"ContractConditions(\\\"MainCondition\\\")\",\"new_column\":\"ContractConditions(\\\"MainCondition\\\")\"}"
+        },
+        {
+            "Name": "nco_donation",
+            "Columns": "[{\"name\":\"sum\",\"type\":\"money\",\"conditions\":\"true\"},{\"name\":\"nco_id\",\"type\":\"number\",\"conditions\":\"true\"},{\"name\":\"comment\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"donor_id\",\"type\":\"number\",\"conditions\":\"true\"}]",
+            "Permissions": "{\"insert\":\"ContractConditions(\\\"MainCondition\\\")\",\"update\":\"ContractConditions(\\\"MainCondition\\\")\",\"new_column\":\"ContractConditions(\\\"MainCondition\\\")\"}"
+        },
+        {
+            "Name": "nco_donor",
+            "Columns": "[{\"name\":\"name\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"karma\",\"type\":\"number\",\"conditions\":\"true\"},{\"name\":\"description\",\"type\":\"text\",\"conditions\":\"true\"}]",
+            "Permissions": "{\"insert\":\"ContractConditions(\\\"MainCondition\\\")\",\"update\":\"ContractConditions(\\\"MainCondition\\\")\",\"new_column\":\"ContractConditions(\\\"MainCondition\\\")\"}"
+        },
+        {
+            "Name": "nco_mat_request",
+            "Columns": "[{\"name\":\"material_type\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"nco_id\",\"type\":\"number\",\"conditions\":\"true\"},{\"name\":\"quantity\",\"type\":\"number\",\"conditions\":\"true\"},{\"name\":\"isfulfilled\",\"type\":\"bytea\",\"conditions\":\"true\"}]",
+            "Permissions": "{\"insert\":\"ContractConditions(\\\"MainCondition\\\")\",\"update\":\"ContractConditions(\\\"MainCondition\\\")\",\"new_column\":\"ContractConditions(\\\"MainCondition\\\")\"}"
+        },
+        {
+            "Name": "nco_mission_completed_report",
+            "Columns": "[{\"name\":\"organization_id\",\"type\":\"number\",\"conditions\":\"true\"},{\"name\":\"report_contains\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"charity_request_id\",\"type\":\"number\",\"conditions\":\"true\"},{\"name\":\"recipient_acknowledgement\",\"type\":\"bytea\",\"conditions\":\"true\"}]",
+            "Permissions": "{\"insert\":\"ContractConditions(\\\"MainCondition\\\")\",\"update\":\"true\",\"new_column\":\"ContractConditions(\\\"MainCondition\\\")\"}"
+        },
+        {
+            "Name": "nco_recipient",
+            "Columns": "[{\"name\":\"name\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"description\",\"type\":\"text\",\"conditions\":\"true\"}]",
+            "Permissions": "{\"insert\":\"ContractConditions(\\\"MainCondition\\\")\",\"update\":\"ContractConditions(\\\"MainCondition\\\")\",\"new_column\":\"ContractConditions(\\\"MainCondition\\\")\"}"
+        },
+        {
+            "Name": "nco_roles",
+            "Columns": "[{\"name\":\"name\",\"type\":\"text\",\"conditions\":\"true\"},{\"name\":\"permissions\",\"type\":\"text\",\"conditions\":\"true\"}]",
+            "Permissions": "{\"insert\":\"ContractConditions(\\\"MainCondition\\\")\",\"update\":\"ContractConditions(\\\"MainCondition\\\")\",\"new_column\":\"ContractConditions(\\\"MainCondition\\\")\"}"
+        }
+    ],
+    "data": [
+        {
+            "Table": "nco_charity_request",
+            "Columns": [
+                "recipient_id",
+                "request_digest"
+            ],
+            "Data": []
+        },
+        {
+            "Table": "nco_credentials",
+            "Columns": [
+                "registered",
+                "credentials",
+                "description",
+                "name",
+                "tags",
+                "rating",
+                "website"
+            ],
+            "Data": []
+        },
+        {
+            "Table": "nco_donation",
+            "Columns": [
+                "sum",
+                "nco_id",
+                "comment",
+                "donor_id"
+            ],
+            "Data": []
+        },
+        {
+            "Table": "nco_donor",
+            "Columns": [
+                "name",
+                "karma",
+                "description"
+            ],
+            "Data": []
+        },
+        {
+            "Table": "nco_mat_request",
+            "Columns": [
+                "nco_id",
+                "quantity",
+                "isfulfilled",
+                "material_type"
+            ],
+            "Data": []
+        },
+        {
+            "Table": "nco_mission_completed_report",
+            "Columns": [
+                "recipient_acknowledgement",
+                "organization_id",
+                "report_contains",
+                "charity_request_id"
+            ],
+            "Data": []
+        },
+        {
+            "Table": "nco_recipient",
+            "Columns": [
+                "name",
+                "description"
+            ],
+            "Data": []
+        },
+        {
+            "Table": "nco_roles",
+            "Columns": [
+                "name",
+                "permissions"
+            ],
+            "Data": []
+        }
+    ]
+}
